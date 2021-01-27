@@ -133,7 +133,7 @@ function get_post_by_slug( WP_REST_Request $request ) {
 }
 
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'better-rest-endpoints/v1', '/post/(?P<slug>\S+)', array(
+  register_rest_route( 'better-rest-endpoints/v1', '/posts/(?P<slug>\S+)', array(
     'methods' => 'GET',
     'callback' => 'get_post_by_slug',
   ) );
