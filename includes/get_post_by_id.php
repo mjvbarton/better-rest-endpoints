@@ -3,7 +3,7 @@
  * Grab latest post by ID
  *
  * @param array $data Options for the function.
- * @return string|null Post data by id,  * or empty object if none.
+ * @return string|null Post data by id, * or empty object if none.
  * @since 0.0.1
  */
 
@@ -47,18 +47,20 @@ function get_post_by_id( $data ) {
        */
       $categories = get_the_category();
 
-      $bre_categories = [];
-      $bre_category_ids = [];
+      $bre_categories = [];      
 
       if( !empty($categories) ){
-        foreach ($categories as $key => $category) {
-          array_push($bre_category_ids, $category->term_id);
-          array_push($bre_categories, $category->cat_name);
+        foreach ($categories as $key => $category) {          
+          array_push($bre_categories, 
+          [
+            'id' => $category->term_id,
+            'name' => $category->cat_name,
+            'slug' => $category->slug,
+          ]);
         }
       }
 
-      $bre_post->category_ids = $bre_category_ids;
-      $bre_post->category_names = $bre_categories;
+      $bre_post->categories = $bre_categories;
 
       /*
        *
@@ -67,18 +69,19 @@ function get_post_by_id( $data ) {
        */
       $tags = get_the_tags();
 
-      $bre_tags = [];
-      $bre_tag_ids = [];
+      $bre_tags = [];      
 
       if( !empty($tags) ){
-        foreach ($tags as $key => $tag) {
-          array_push($bre_tag_ids, $tag->term_id);
-          array_push($bre_tags, $tag->name);
+        foreach ($tags as $key => $tag) {          
+          array_push($bre_tags, [
+            'id' => $tag->term_id,
+            'name' => $tag->name,            
+            'slug' => $tag->slug,
+          ]);
         }
       }
-
-      $bre_post->tag_ids = $bre_tag_ids;
-      $bre_post->tag_names = $bre_tags;
+      
+      $bre_post->tags = $bre_tags;
 
       /*
        *
